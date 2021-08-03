@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="/css/imaterial/imaterial.css">
+{*<pre>{= print_r($paramArrayData)}</pre>*}
+<div class="i-material">
+    {*
+    <form method="post">
+        <div class="i-text">
+            <input type="text" name="newGroup" required>
+            <label>Nový název skupiny parametrů</label>
+        </div>
+        <input class="i-btn" type="submit" value="Vytvořit">
+    </form>
+
+    <hr>
+    *}
+
+    {foreach $paramArrayData as $group}
+    <h2><a class="i-btn i-btn-icon i-btn-outline i-btn-circle" n:href="deleteGroup $group->getId()"><i class="material-icons">delete</i></a> {$group->getName()}</h2>
+    <form method="post">
+        <div class="i-row" data-flex="center gutter">
+            <div class="i-col">
+                <div class="i-text"><input type="text" name="newParamName[{$group->getId()}][]" required><label>Název</label></div>
+            </div>
+            <div class="i-col">
+                <div class="i-text"><input type="text" name="newParamValue[{$group->getId()}][]" required><label>Hodnota</label></div>
+            </div>
+        </div>
+        <input class="i-btn" type="submit" value="Uložit">
+    </form>
+    <div class="i-table">
+        <table>
+            <thead>
+                <tr>
+                    <td class="i-col">
+                        Název
+                    </td>
+                    <td class="i-col">
+                        Hodnota
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+            {foreach $group->getParams() as $paramId => $param}
+                <tr>
+                    <td class="i-col">
+                        {$param->getName()}
+                    </td>
+                    <td class="i-col">
+                        {$param->getValue()}
+                    </td>
+                    <td>
+                        <a class="i-btn i-btn-icon i-btn-outline i-btn-circle" n:href="deleteParam $group->getId(),$param->getId()"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+
+    {/foreach}
+
+
+
+</div>
