@@ -1,0 +1,17 @@
+
+{inject "/skins/basic/style.css"}
+{var $gridData => $control->getData()}
+<strong></strong>
+<table n:if="!empty($gridData)" class="dgrid-table">
+    <tr>
+        <th n:foreach="$control->getCols() as $col">
+            {$col->getCaption()}
+        </th>
+    </tr>
+    <tr n:foreach="$gridData as $row">
+        <td n:foreach="$control->getCols() as $col">
+            {$col->val($row)}
+        </td>
+    </tr>
+</table>
+<a class="dgrid-btn" href="{link Add}" n:if="$control->inAddAllowed()">Nová položka ({$control->getGridName()})</a>

@@ -1,0 +1,88 @@
+{inject "/skins/basic/style.css"}
+<div class="dgrid-form">
+{form $formName}
+    <table>
+    {foreach $formStructure as $item_name => $item_option}
+        <tr n:if="$item_option['type']!='static'" class="dgrid-item dgrid-item-{$item_option['type']}">
+            {if $item_option['type'] == 'group'}
+            {* group *}
+                <td colspan="2">
+                    <div class="dgrid-title">{$item_option['caption']}</div>
+                    <p n:if="isset($item_option['desc'])">{$item_option['desc']}</p>
+                </td>
+            {elseif $item_option['type'] == 'percentage'}
+                <td class="dgrid-label">
+                    {label $item_name /}
+                </td>
+                <td>
+                    {input $item_name type=>"number",step=>"0.1",min=>"0",max=>"100"}%
+                </td>
+            {elseif $item_option['type'] == 'date_timestamp'}
+                <td class="dgrid-label">
+                    {label $item_name /}
+                </td>
+                <td>
+                    {input $item_name type=>"date"}
+                </td>
+            {elseif $item_option['type'] == 'switch'}
+            {* switch *}
+                <td class="dgrid-label">
+                    {label $item_name /}
+                </td>
+                <td>
+                    {label $item_name class=>"switch"}
+                    {input $item_name}
+                    <span class="slider"></span>
+                    {/label}
+                </td>
+            {elseif $item_option['type'] == 'switchnumber'}
+            {* switch *}
+                <td class="dgrid-label">
+                    {label $item_name /}
+                </td>
+                <td>
+                    {label $item_name class=>"switch"}
+                    {input $item_name}
+                    <span class="slider"></span>
+                    {input $item_name."_input" type=>"number",class=>"switchinput",placeholder=>$item_option['valueCaption']}
+                    {/label}
+                </td>
+            {elseif $item_option['type'] == 'image'}
+            {* string *}
+                <td class="dgrid-label">
+                    {label $item_name/}
+                </td>
+                <td>
+                    {input $item_name}
+                </td>
+            {elseif $item_option['type'] == 'float'}
+            {* string *}
+                <td class="dgrid-label">
+                    {label $item_name/}
+                </td>
+                <td>
+                    {input $item_name type=>"number",step=>"0.5"}
+                </td>
+            {else}
+            {* string *}
+                <td class="dgrid-label">
+                    {label $item_name/}
+                </td>
+                <td>
+                    {input $item_name}
+                </td>
+            {/if}
+        </tr>
+    {/foreach}
+        <tr>
+            <td>
+            </td>
+            <td>
+                <div class="dgrid-btns">
+                {input send class=>"btn btn-primary"}
+                </div>
+            </td>
+        </tr>
+    </table>
+{/form}
+</div>
